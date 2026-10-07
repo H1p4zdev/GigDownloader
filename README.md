@@ -4,15 +4,35 @@
 
 ### Desktop
 ##### (MacOS & Linux)
+If you have [Homebrew](https://brew.sh/) on macOS:
+
 ```bash
-Coming Soon
+coming soon...
+```
+
+Direct install via Terminal (macOS & Linux, no package manager needed):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install.sh | bash
 
 ```
+
 ##### (Windows)
-```bash
+If you have [Scoop](https://scoop.sh/):
+```powershell
+coming soon...
+```
+
+
+Direct install via PowerShell (no package manager needed):
+```powershell
 irm https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install.ps1 | iex
 
 ```
+
+> **SmartScreen prompt:** If Windows displays *"Windows protected your PC"*, click **More info** → **Run anyway**.
+> 
+
 
 
 ### Termux (Android)
