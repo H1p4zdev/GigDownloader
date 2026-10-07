@@ -3,12 +3,12 @@
 ## 🚀 Installation
 
 ### Desktop
-#### (MacOS & Linux)
+##### (MacOS & Linux)
 ```bash
 Coming Soon
 
 ```
-#### (Windows)
+##### (Windows)
 ```bash
 irm https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install.ps1 | iex
 
