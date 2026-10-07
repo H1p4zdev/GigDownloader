@@ -2,12 +2,18 @@
 
 ## 🚀 Installation
 
-### Desktop (Windows / macOS / Linux)
-
+### Desktop
+#### (MacOS & Linux)
 ```bash
 Coming Soon
 
 ```
+#### (Windows)
+```bash
+irm https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install.ps1 | iex
+
+```
+
 
 ### Termux (Android)
 
