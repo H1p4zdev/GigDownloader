@@ -1,4 +1,4 @@
-# GiGDownloader
+# 🎉GiGDownloader🎉
 
 ## 🚀 Installation
 
