@@ -390,6 +390,9 @@ def _runtime_opts() -> dict:
 
 def base_opts(platform_name=None) -> dict:
     opts = {"quiet": True, "no_warnings": True}
+    if platform_name == "Pinterest":
+        # Pinterest short links may spend several seconds on their redirect and TLS handshake.
+        opts.update({"socket_timeout": 30, "retries": 4, "extractor_retries": 4})
     if platform_name == "YouTube":
         opts["noplaylist"] = True
         opts.update(_runtime_opts())
@@ -447,7 +450,7 @@ class _PinterestImageParser(HTMLParser):
 def download_pinterest_image(url: str, videos_dir: Path):
     """Fallback for image pins when yt-dlp's Pinterest extractor has no video formats."""
     request = Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urlopen(request, timeout=20) as response:
+    with urlopen(request, timeout=30) as response:
         page = response.read(2_000_000).decode("utf-8", errors="replace")
     parser = _PinterestImageParser()
     parser.feed(page)
