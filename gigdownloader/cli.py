@@ -31,12 +31,14 @@ import argparse
 import functools
 from html.parser import HTMLParser
 import importlib.util
+import json
 import os
 import re
 import shutil
 import subprocess
 import sys
-from urllib.parse import urljoin
+from urllib.error import URLError
+from urllib.parse import quote, urljoin
 from urllib.request import Request, urlopen
 from pathlib import Path
 
@@ -58,6 +60,8 @@ except ImportError:  # pragma: no cover
     sys.exit(1)
 
 APP_NAME = "GigDownloader"
+STABLE_REPOSITORY = "xauusd25/GigDownloader"
+BETA_REPOSITORY = "H1p4zdev/GigDownloader"
 STATE = {"cookies": None}
 
 
@@ -225,6 +229,81 @@ def system_name() -> str:
     if is_termux():
         return "Termux"
     return {"win32": "Windows", "darwin": "macOS"}.get(sys.platform, "Linux")
+
+
+def _version_parts(version: str):
+    return tuple(int(part) for part in re.findall(r"\d+", version))
+
+
+def check_for_updates() -> bool:
+    """Show stable and beta versions; optionally install either channel."""
+    if not sys.stdin.isatty():
+        return False
+
+    def fetch_json(endpoint):
+        request = Request(endpoint, headers={"Accept": "application/vnd.github+json", "User-Agent": APP_NAME})
+        with urlopen(request, timeout=3) as response:
+            return json.loads(response.read().decode("utf-8"))
+
+    try:
+        stable = fetch_json(f"https://api.github.com/repos/{STABLE_REPOSITORY}/releases/latest")
+        beta = fetch_json(f"https://api.github.com/repos/{BETA_REPOSITORY}/commits/main")
+        stable_tag = str(stable.get("tag_name", "")).strip()
+        stable_version = stable_tag.removeprefix("v")
+        beta_sha = str(beta.get("sha", ""))
+        if not stable_version or not beta_sha:
+            return False
+    except (URLError, TimeoutError, ValueError, TypeError, KeyError, AttributeError):
+        return False
+
+    stable_newer = _version_parts(stable_version) > _version_parts(__version__)
+    seen_file = CONFIG_DIR / "beta_seen"
+    try:
+        beta_newer = seen_file.read_text(encoding="utf-8").strip() != beta_sha
+    except OSError:
+        beta_newer = True
+
+    print(f"\nUpdates: Stable {stable_tag} ({STABLE_REPOSITORY})")
+    print(f"         Beta main@{beta_sha[:7]} ({BETA_REPOSITORY})")
+    if stable_newer:
+        print(f"{YELLOW}Stable update available (installed: {__version__}).{RESET}")
+    if beta_newer:
+        print(f"{YELLOW}Beta update available.{RESET}")
+    if not stable_newer and not beta_newer:
+        return False
+
+    answer = input("Install [b]eta, [s]table, or [N]o update? ").strip().lower()
+    if answer not in ("b", "beta", "s", "stable"):
+        try:
+            CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+            seen_file.write_text(beta_sha, encoding="utf-8")
+        except OSError:
+            pass
+        return False
+
+    if answer in ("s", "stable"):
+        archive_url = f"https://github.com/{STABLE_REPOSITORY}/archive/refs/tags/{quote(stable_tag, safe='')}.tar.gz"
+    else:
+        archive_url = f"https://github.com/{BETA_REPOSITORY}/archive/refs/heads/main.tar.gz"
+    command = [sys.executable, "-m", "pip", "install", "--upgrade", "--force-reinstall", "--no-deps", archive_url]
+    print(f"Updating GigDownloader from {'stable' if answer in ('s', 'stable') else 'beta'}...")
+    try:
+        result = subprocess.run(command, check=False)
+    except OSError as exc:
+        warn(f"Could not start the updater: {exc}")
+        return False
+    if result.returncode:
+        warn("Update failed. You can update later with:")
+        print(f"  {' '.join(command)}")
+        return False
+    if answer in ("b", "beta"):
+        try:
+            CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+            seen_file.write_text(beta_sha, encoding="utf-8")
+        except OSError:
+            pass
+    ok("Update installed. Restart gig to use the new version.")
+    return True
 
 
 # ───────────────────── JS runtime / ffmpeg / cookies ─────────────────────
@@ -611,6 +690,8 @@ def parse_args(argv=None):
 
 def run(args) -> None:
     banner()
+    if check_for_updates():
+        return
     videos_dir, audios_dir = ensure_download_dirs(args.output)
     STATE["cookies"] = find_cookies(args.cookies)
 

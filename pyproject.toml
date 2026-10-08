@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gigdownloader"
-version = "1.0.0"
-description = "GigDownloader - YouTube, Facebook, Instagram, X, TikTok and Threads video downloader"
+version = "1.0.1b1"
+description = "GigDownloader - YouTube, Facebook, Instagram, X, TikTok, Threads and Pinterest downloader"
 requires-python = ">=3.10"
 dependencies = ["yt-dlp", "yt-dlp-threads"]
 
