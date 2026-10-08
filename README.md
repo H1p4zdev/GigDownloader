@@ -7,7 +7,8 @@
 If you have [Homebrew](https://brew.sh/) on macOS:
 
 ```bash
-coming soon...
+brew tap xauusd25/GigDownloader https://github.com/xauusd25/GigDownloader
+brew install gigdownloader
 
 ```
 
