@@ -12,6 +12,8 @@ brew install gig
 
 ```
 
+> **Note:** If Homebrew prompts for tap verification on initial install, run `brew trust xauusd25/gig`.
+
 Direct install via Terminal (macOS & Linux, no package manager needed):
 
 ```bash
