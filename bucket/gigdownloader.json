@@ -1,0 +1,36 @@
+{
+    "version": "1.0.0",
+    "description": "YouTube, Facebook, Instagram, X, TikTok and Threads video downloader (up to 8K)",
+    "homepage": "https://github.com/xauusd25/GigDownloader",
+    "license": "MIT",
+    "depends": [
+        "python",
+        "ffmpeg",
+        "deno"
+    ],
+    "url": "https://github.com/xauusd25/GigDownloader/archive/refs/tags/v1.0.0.zip",
+    "hash": "3c9cc79362874caa24c2da5ffc8521288f4392a9df45908aba1b19025ac47e6b",
+    "extract_dir": "GigDownloader-1.0.0",
+    "installer": {
+        "script": [
+            "python -m venv \"$dir\\venv\"",
+            "& \"$dir\\venv\\Scripts\\python.exe\" -m pip install --upgrade pip",
+            "& \"$dir\\venv\\Scripts\\python.exe\" -m pip install --upgrade \"yt-dlp[default]\" yt-dlp-threads \"https://github.com/xauusd25/GigDownloader/archive/refs/tags/v$version.zip\""
+        ]
+    },
+    "bin": [
+        [
+            "venv\\Scripts\\gig.exe",
+            "gig"
+        ],
+        [
+            "venv\\Scripts\\gigdownloader.exe",
+            "gigdownloader"
+        ]
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "url": "https://github.com/xauusd25/GigDownloader/archive/refs/tags/v$version.zip",
+        "extract_dir": "GigDownloader-$version"
+    }
+}
