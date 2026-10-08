@@ -7,7 +7,7 @@
 If you have [Homebrew](https://brew.sh/) on macOS:
 
 ```bash
-brew install xauusd25/tap/gigdownloader
+coming soon...
 
 ```
 
