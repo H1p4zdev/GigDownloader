@@ -7,8 +7,8 @@
 If you have [Homebrew](https://brew.sh/) on macOS:
 
 ```bash
-brew tap xauusd25/GigDownloader https://github.com/xauusd25/GigDownloader
-brew install gigdownloader
+brew tap xauusd25/gig https://github.com/xauusd25/GigDownloader
+brew install gig
 
 ```
 
@@ -23,7 +23,7 @@ curl -fsSL https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install
 If you have [Scoop](https://scoop.sh/):
 ```powershell
 scoop bucket add gig https://github.com/xauusd25/GigDownloader
-scoop install gigdownloader
+scoop install gig
 
 ```
 
