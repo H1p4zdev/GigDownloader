@@ -7,7 +7,8 @@
 If you have [Homebrew](https://brew.sh/) on macOS:
 
 ```bash
-coming soon...
+brew install xauusd25/tap/gigdownloader
+
 ```
 
 Direct install via Terminal (macOS & Linux, no package manager needed):
@@ -20,7 +21,9 @@ curl -fsSL https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install
 ##### (Windows)
 If you have [Scoop](https://scoop.sh/):
 ```powershell
-coming soon...
+scoop bucket add gig https://github.com/xauusd25/scoop-bucket
+scoop install gigdownloader
+
 ```
 
 
