@@ -21,7 +21,7 @@ curl -fsSL https://raw.githubusercontent.com/xauusd25/GigDownloader/main/install
 ##### (Windows)
 If you have [Scoop](https://scoop.sh/):
 ```powershell
-scoop bucket add gig https://github.com/xauusd25/scoop-bucket
+scoop bucket add gig https://github.com/xauusd25/GigDownloader
 scoop install gigdownloader
 
 ```
