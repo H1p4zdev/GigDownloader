@@ -9,7 +9,7 @@
         "deno"
     ],
     "url": "https://github.com/xauusd25/GigDownloader/archive/refs/tags/v1.0.0.zip",
-    "hash": "3c9cc79362874caa24c2da5ffc8521288f4392a9df45908aba1b19025ac47e6b",
+    "hash": "bfcb69a4c71f5bc0cedffddc3d16ab07bd641162d2c038498e3aa9dd25a26c5c",
     "extract_dir": "GigDownloader-1.0.0",
     "installer": {
         "script": [
