@@ -1,5 +1,5 @@
 # 🎉GiGDownloader🎉
-
+![GiG](thumbnail.png)
 ## 🚀 Installation
 
 ### Desktop
